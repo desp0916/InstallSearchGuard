@@ -14,7 +14,7 @@
 
 ## 1. 安裝一些 rpm 與兩個 plugins
 
-建議先閱讀一下 [search-guard-ssl](https://github.com/floragunncom/search-guard-ssl) 的一篇 wiki —— [Open SSL setup](https://github.com/floragunncom/search-guard-ssl/wiki/Open-SSL-setup)，請依序執行以下指令：
+建議先閱讀一下 [search-guard-ssl](https://github.com/floragunncom/search-guard-ssl) 的一篇 wiki —— [Open SSL setup](https://github.com/floragunncom/search-guard-ssl/wiki/Open-SSL-setup)。再依序執行以下指令：
 
 ```bash
 # 安裝 openssl、openssl-devel、apr 這三個 rpms（如果你不想使用 Open SSL，可以不裝 apr）
@@ -30,6 +30,12 @@ alternatives --install /usr/bin/keytool keytool /usr/java/default/jre/bin/keytoo
 ```
 
 安裝完兩個 plugin 以後，在你的 `/usr/share/elasticsearch/plugins/` 目錄下應該會出現「`search-guard-2`」和「`search-guard-ssl`」兩個目錄。
+
+執行以下指令，打開 search-guard-ssl 的 log 層級至 `DEBUG`：
+
+```
+echo "logger.com.floragunn.searchguard.ssl: DEBUG" >> /etc/elasticsearch/logging.yml
+```
 
 此時，至少在 `/etc/elasticsearch/elasticsearch.yml` 加入以下設定：
 
@@ -64,21 +70,17 @@ git clone https://github.com/floragunncom/search-guard-ssl.git
  - `gen_client_cert.sh`
  - `gen_node_cert.sh`
 
-同樣地，建議你也可以參考[我修改後的內容](https://github.com/desp0916/InstallSearchGaurd/sg_scripts/) 與官方的文件「[Create your own Root CA](https://github.com/floragunncom/search-guard-ssl/wiki/Create-your-own-Root-CA)」。然後，再把這個目錄複製為 `/usr/share/elasticsearch/sg_scripts`：
+同樣地，建議你也可以先參考官方 wiki「[Create your own Root CA](https://github.com/floragunncom/search-guard-ssl/wiki/Create-your-own-Root-CA)」與[我修改後的內容](https://github.com/desp0916/InstallSearchGaurd/sg_scripts/) 。然後，再把這個目錄複製為 `/usr/share/elasticsearch/sg_scripts`：
 
 ```
 cp -r search-guard-ssl/example-pki-scripts /usr/share/elasticsearch/sg_scripts
 ```
 
-執行以下指令，打開 Search Guard 的 log 層級至 DEBUG：
-
-```
-echo "logger.com.floragunn.searchguard.ssl: DEBUG" >> /etc/elasticsearch/logging.yml
-```
-
 接著，再檢查一下 `/usr/share/elasticsearch/sg_scripts/` 目錄下的檔案：
 
 ```
+cd /usr/share/elasticsearch/
+tree -L 3 sg_scripts/
 sg_scripts/
 ├── clean.sh
 ├── etc
