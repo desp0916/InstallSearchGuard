@@ -4,15 +4,17 @@
 
 我使用的軟體版本如下：
 
-  1. OS: CentOS 7.2.1511(Core)
-  2. Java: 1.7.0_79
-  3. Elasticsearch: 2.3.1 （我是[透過 yum 安裝的](https://www.elastic.co/guide/en/elasticsearch/reference/current/setup-repositories.html)）
-  4. search-guard-ssl: 2.3.1.8.1
-  5. search-guard-2: 2.3.1.0-beta1
+  - OS: CentOS 7.2.1511(Core)
+  - Java: 1.7.0_79
+  - Elasticsearch: 2.3.1 （我是[透過 yum 安裝的](https://www.elastic.co/guide/en/elasticsearch/reference/current/setup-repositories.html)）
+  - search-guard-ssl: 2.3.1.8.1
+  - search-guard-2: 2.3.1.0-beta1
 
-另外，請注意本文只有用 VirtualBox 建立一個 Elasticsearch node 而已。
+另外，我只有在 VirtualBox 裡的一個 Elasticsearch node 上測試過而已，尚未於正式環境上的 Cluster 實際驗證過 。
 
 ## 1. 安裝一些 RPM 與兩個 plugins
+
+請依序執行以下指令：
 
 ```bash
 # 安裝 openssl 和 apr RPMS（如果你不想使用 Open SSL，此步驟可省略）
@@ -29,29 +31,40 @@ alternatives --install /usr/bin/keytool keytool /usr/java/default/jre/bin/keytoo
 
 安裝完兩個 plugin 以後，在你的 `/usr/share/elasticsearch/plugins/` 目錄下應該會出現「`search-guard-2`」和「`search-guard-ssl`」兩個目錄。
 
+此時，至少在 `/etc/elasticsearch/elasticsearch.yml` 加入以下設定：
+
+```bash
+searchguard.enable: true
+security.manager.enabled: false
+searchguard.authcz.admin_dn:
+  - "CN=admin,OU=client,O=PIC,l=Taipei, C=TW"
+```
+
+然後 restart Elasticsearch 服務：
+
+```bash
+systemctl restart elasticsearch
+```
+
 ## 2. 準備相關檔案
 
-此步驟我們要先 git clone [search-guard-ssl](https://github.com/floragunncom/search-guard-ssl/)，因為我們需要此專案中的 `searchguard-ssl-config-template.yml` 檔案與 `example-pki-scripts` 目錄裡的一些 shell scripts，才能完成後續的工作。
+我們在此步驟要先 git clone 「[search-guard-ssl](https://github.com/floragunncom/search-guard-ssl/) 」專案，因為我們需要此專案中的 `searchguard-ssl-config-template.yml` 檔案與 `example-pki-scripts` 目錄裡的一些 shell scripts，才能完成後續的工作。
 
 ```bash
 mkdir -p /root/tmp && cd /root/tmp
 git clone https://github.com/floragunncom/search-guard-ssl.git
 ```
 
-請先依據您的需要，編輯 `search-guard-ssl/searchguard-ssl-config-template.yml`（建議你可以先參考一下[我的 elasticsearch.yml](https://github.com/desp0916/InstallSearchGaurd/etc/elasticsearch.yml)，比較看看我修改了哪些地方）。然後，再把這個檔案 append 到 `/etc/elasticsearch/elasticsearch.yml`。
-
-```bash
-cat search-guard-ssl/searchguard-ssl-config-template.yml >> /etc/elasticsearch/elasticsearch.yml
-```
+請先依據您的需要，編輯 `search-guard-ssl/searchguard-ssl-config-template.yml`。（建議你可以先參考一下[我設定完成的 elasticsearch.yml](https://github.com/desp0916/InstallSearchGaurd/etc/elasticsearch.yml)，比較看看我修改了哪些地方）。然後，再把這些設定加入 `/etc/elasticsearch/elasticsearch.yml`。
 
 再來，也請先依據您的需要，編輯 `/usr/share/elasticsearch/sg_scripts` 下的這四個檔案：
 
-- `etc/root-ca.conf`
-- `etc/signing-ca.conf`
-- `gen_client_cert.sh`
-- `gen_node_cert.sh`
+ a. `etc/root-ca.conf`
+ b. `etc/signing-ca.conf`
+ c. `gen_client_cert.sh`
+ d. `gen_node_cert.sh`
 
-同樣地，建議你也可以參考[我修改後的內容](https://github.com/desp0916/InstallSearchGaurd/sg_scripts/) 與官方的文件「[Create your own Root CA](https://github.com/floragunncom/search-guard-ssl/wiki/Create-your-own-Root-CA)」。然後，再把這個目錄複製成 `/usr/share/elasticsearch/sg_scripts`：
+同樣地，建議你也可以參考[我修改後的內容](https://github.com/desp0916/InstallSearchGaurd/sg_scripts/) 與官方的文件「[Create your own Root CA](https://github.com/floragunncom/search-guard-ssl/wiki/Create-your-own-Root-CA)」。然後，再把這個目錄複製為 `/usr/share/elasticsearch/sg_scripts`：
 
 ```
 cp -r search-guard-ssl/example-pki-scripts /usr/share/elasticsearch/sg_scripts
@@ -79,7 +92,7 @@ sg_scripts/
 
 ## 3. 產生 truststore 與 keystore：
 
-一般來說，如果要產生自我簽署的 SSL 憑證（self-signed certificate），首先就要自己當 Root CA。然後 Root CA 的憑證去簽署 csr，產生 crt、pem 與 jks。之後，nodes 之間的傳輸通道才能使用 SSL 加密。而 keystore 包含了讓其他 node 識別某特定 node 的憑證（certificates），truststore 則包含了某特定 node 信任的節點的憑證 —— 這點可藉由將根憑證加入 truststore 來達成。所以這個步驟主要就是在做這件事情：
+一般來說，如果要產生自我簽署的 SSL 憑證（self-signed certificate），首先就是要自己當 Root CA，然後用 Root CA 的憑證去簽署 node 的 csr，產生 node 的 crt、pem 與 jks。之後，nodes 之間的傳輸通道才能使用 SSL 加密（透過每個 node 上的 keystore 與 trustore）。keystore 包含了讓其他 nodes 識別 node 本身的憑證，truststore 則包含了自己信任的其他節點憑證 —— 這點可藉由將根憑證加入 truststore 來達成。所以這個步驟主要就是在產生這些 keystore 和 trustore。
 
 產生 Root CA 憑證與 truststore：
 
@@ -187,11 +200,11 @@ plugins/search-guard-2/tools/sgadmin.sh \
 
 `sgadmin.sh` 會以 `admin` 這個帳號與密碼，把 `sgconfig/` 目錄下的 5 個檔案上傳到 cluster，並建立（或更新） `searchguard` 索引： 
 
- 1. `sg_config.yml`
- 2. `sg_roles.yml`
- 3. `sg_roles_mapping.yml`
- 4. `sg_internal_users.yml`
- 5. `sg_action_groups.yml`
+ a. `sg_config.yml`
+ b. `sg_roles.yml`
+ c. `sg_roles_mapping.yml`
+ d. `sg_internal_users.yml`
+ e. `sg_action_groups.yml`
 
 這 5 個檔案就是所謂的「[Dynamic configuration](https://github.com/floragunncom/search-guard)」。
 
@@ -221,6 +234,8 @@ Done with success
 
 ```bash
 curl -XGET -k -u admin:adminpass "https://localhost:9200/_searchguard/sslinfo?pretty"
+# 1. 如果安裝失敗，你應該不會看到任何訊息。
+# 2. 如果 Open SSL 設定成功，會看到如下訊息：
 {
   "principal" : null,
   "peer_certificates" : "0",
@@ -233,6 +248,20 @@ curl -XGET -k -u admin:adminpass "https://localhost:9200/_searchguard/sslinfo?pr
   "ssl_provider_http" : "OPENSSL",
   "ssl_provider_transport_server" : "OPENSSL",
   "ssl_provider_transport_client" : "OPENSSL"
+}
+# 3. 如果 Open SSL 啟用失敗，會降回使用 JKS：
+{
+  "principal" : null,
+  "peer_certificates" : "0",
+  "ssl_protocol" : "TLSv1.2",
+  "ssl_cipher" : "TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA",
+  "ssl_openssl_available" : false,
+  "ssl_openssl_version" : -1,
+  "ssl_openssl_version_string" : null,
+  "ssl_openssl_non_available_cause" : "java.lang.IllegalArgumentException: Failed to load any of the given libraries: [netty-tcnative-linux-x86_64, netty-tcnative-linux-x86_64-fedora, netty-tcnative]",
+  "ssl_provider_http" : "JDK",
+  "ssl_provider_transport_server" : "JDK",
+  "ssl_provider_transport_client" : "JDK"
 }
 ```
 
@@ -250,24 +279,31 @@ yellow open shakespeare         5 1 111396 0  18.8mb  18.8mb
 yellow open logstash-2015.05.20 5 1   4750 0    19mb    19mb
 ```
 
-檢視  `searchgaurd` 這個索引的內容：
+最後，也可檢視  `searchgaurd` 這個索引的內容：
 
 ```bash
  curl -XGET -k -u admin:test123 "https://localhost:9200/searchguard/?pretty" | less
- ```
+ :
+ :
+```
 
-## 7. 如何設定 user 的權限？
-
-其實在 `/usr/share/elasticsearch/plugins/search-guard-2/sgconfig/sg_internal_users.yml` 裡，已經有內建很多個 users 了，這但這應該只是一個設定的範例檔而已，因為作者並沒有建立相對應的 roles 與 roles_mapping 設定（`sg_roles.yml` 和 `sg_roles_mapping.yml`）。建議你可以自行稍微花些時間瞭解這些檔案之間的關聯與設定方式，本文就不詳述了（其實我自己也還沒有搞很清楚啦，呵呵～）。
-
-## 8. 參考文件：
+## 7. 參考文件：
 
 以下是我參考的一些文件：
 
-  - [search-guard](https://github.com/floragunncom/search-guard)
-  - [search-guard Wiki]https://github.com/floragunncom/search-guard/wiki
-  - [search-guard-ssl](https://github.com/floragunncom/search-guard-ssl)
-  - [search-guard-ssl Wiki](https://github.com/floragunncom/search-guard-ssl/wiki)
-  - [Search Guard for Elasticsearch 2 is coming Februar 2016    ](https://groups.google.com/forum/#!topic/search-guard/orEvYx3liH8)
+  a. [search-guard](https://github.com/floragunncom/search-guard)
+  b. [search-guard Wiki](https://github.com/floragunncom/search-guard/wiki)
+  c. [search-guard-ssl](https://github.com/floragunncom/search-guard-ssl)
+  d. [search-guard-ssl Wiki](https://github.com/floragunncom/search-guard-ssl/wiki)
+  e. [Search Guard for Elasticsearch 2 is coming Februar 2016    ](https://groups.google.com/forum/#!topic/search-guard/orEvYx3liH8)
 
+## 8. 常見問題：
+
+### Q1: 如何設定 user 的權限？
+
+A: 其實在 `/usr/share/elasticsearch/plugins/search-guard-2/sgconfig/sg_internal_users.yml` 裡，已經有內建很多個 users 了，這但這應該只是一個設定的範例檔而已，因為作者並沒有建立相對應的 roles 與 roles_mapping 設定（`sg_roles.yml` 和 `sg_roles_mapping.yml`）。建議你可以自行稍微花些時間瞭解這些檔案之間的關聯與設定方式，本文就不詳述了（其實我自己也還沒有搞很清楚啦，呵呵～）。
+
+### Q2: 如何 troubleshooting？
+
+A: 建議可以另開一個 terminal，然後 `tail -F /var/log/elasticsearch/elasticsearch.log`，隨時觀看 log 訊息。
 
