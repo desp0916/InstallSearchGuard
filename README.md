@@ -130,7 +130,7 @@ cp node-localhost-keystore.jks /etc/elasticsearch  # 將 node-localhost-keystore
 您可以使用以下指令來檢視憑證的有效日期：
 
 ```bash
-openssl x509 -in node-localhost-signed.pem -text -noout
+openssl x509 -in admin-signed.pem -text -noout
 openssl x509 -in node-localhost-signed.pem -text -noout
 ```
 
