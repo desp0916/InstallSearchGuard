@@ -125,7 +125,7 @@ cp node-localhost-keystore.jks /etc/elasticsearch  # 將 node-localhost-keystore
                                                  # admin-signed.pem、admin.csr 共 6 個檔案。
 ```
 
-這裡有一件事情要特別提醒一下，就是這裡產生的憑證都只有*兩年*的有效期限。所以，請務必記得快要到期前，要重新產生憑證喔！
+這裡有一件事情要特別提醒一下，就是這裡產生的憑證都只有*兩年*的有效期限。所以，請務必記得快要到期前，要重新產生憑證喔！不然，整個 cluster 可能會無法正常運作喔！
 
 您可以使用以下指令來檢視憑證的有效日期：
 
