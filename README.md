@@ -12,12 +12,12 @@
 
 另外，我只有在 VirtualBox 裡的一個 Elasticsearch node 上測試過而已，尚未於正式環境上的 Cluster 實際驗證過 。
 
-## 1. 安裝一些 RPM 與兩個 plugins
+## 1. 安裝一些 rpm 與兩個 plugins
 
-請依序執行以下指令：
+建議先閱讀一下 [search-guard-ssl](https://github.com/floragunncom/search-guard-ssl) 的一篇 wiki —— [Open SSL setup](https://github.com/floragunncom/search-guard-ssl/wiki/Open-SSL-setup)」，請依序執行以下指令：
 
 ```bash
-# 安裝 openssl 和 apr RPMS（如果你不想使用 Open SSL，此步驟可省略）
+# 安裝 openssl、openssl-devel、apr 這三個 rpms（如果你不想使用 Open SSL，可以不裝 apr）
 yum install openssl openssl-devel apr
 # 安裝 Apache Tomcat Native Library（如果你不想使用 Open SSL，此步驟可省略）
 cd /usr/share/elasticsearch/plugins/search-guard-ssl && wget  "http://repo1.maven.org/maven2/io/netty/netty-tcnative/1.1.33.Fork13/netty-tcnative-1.1.33.Fork13-osx-x86_64.jar"
