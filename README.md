@@ -309,7 +309,7 @@ yellow open logstash-2015.05.20 5 1   4750 0    19mb    19mb
 
 ### Q1: 如何設定 user 的權限？
 
-A: 其實在 `/usr/share/elasticsearch/plugins/search-guard-2/sgconfig/sg_internal_users.yml` 裡，已經有內建很多個 users 了，這但這應該只是一個設定的範例檔而已，因為作者並沒有建立相對應的 roles 與 roles_mapping 設定（`sg_roles.yml` 和 `sg_roles_mapping.yml`）。建議你可以自行稍微花些時間瞭解這些檔案之間的關聯與設定方式，本文就不詳述了（其實我自己也還沒有搞很清楚啦，呵呵～）。
+A: 其實在 `/usr/share/elasticsearch/plugins/search-guard-2/sgconfig/sg_internal_users.yml` 裡，已經有內建很多個 users 了，但這應該只是一個範例檔而已，因為作者在 `sg_roles.yml` 和 `sg_roles_mapping.yml` 的設定似乎對不起來。建議你可以自行稍微花些時間瞭解這些檔案之間的關聯與設定方式，或者參考 Shield 的文件（因為 Search Guard 似乎在模仿 Shield），本文就不詳述了（其實我自己也還沒有搞很清楚啦，呵呵～）。
 
 ### Q2: 如何 troubleshooting？
 
