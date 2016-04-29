@@ -104,11 +104,7 @@ searchguard.enable: true
 security.manager.enabled: false
 searchguard.authcz.admin_dn:
   - "CN=admin,OU=client,O=PIC,l=Taipei, C=TW"
-  - "CN=kirk,OU=client,O=PIC,l=Taipei, C=TW"
-  - "CN=mister_nagilum,OU=client,O=PIC,l=Taipei, C=TW"
-#  - "cn=127.0.0.1,ou=rd,o=pic,l=taipei,c=taiwan"
-#  - "cn=admin,ou=client,o=pic,l=taipei,c=taiwan"
-#  - "cn=pices,ou=rd,dc=pic,dc=com"
+# - "CN=kirk,OU=client,O=PIC,l=Taipei, C=TW"
 
 #############################################################################################
 #                                     SEARCH GUARD SSL                                      #
@@ -129,7 +125,7 @@ searchguard.ssl.transport.keystore_filepath: node-localhost-keystore.jks
 # Alias name (default: first alias which could be found)
 #searchguard.ssl.transport.keystore_alias: my_alias
 # Keystore password (default: changeit)
-searchguard.ssl.transport.keystore_password: test123
+searchguard.ssl.transport.keystore_password: changeit
 # JKS or PKCS12 (default: JKS)
 #searchguard.ssl.transport.truststore_type: PKCS12
 # Relative path to the truststore file (mandatory, this stores the client/root certificates), must be placed under the config/ dir
@@ -137,7 +133,7 @@ searchguard.ssl.transport.truststore_filepath: truststore.jks
 # Alias name (default: first alias which could be found)
 #searchguard.ssl.transport.truststore_alias: my_alias
 # Truststore password (default: changeit)
-searchguard.ssl.transport.truststore_password: test123
+searchguard.ssl.transport.truststore_password: changeit
 # Enforce hostname verification (default: true)
 searchguard.ssl.transport.enforce_hostname_verification: false
 # If hostname verification specify if hostname should be resolved (default: true)
@@ -158,7 +154,7 @@ searchguard.ssl.http.keystore_filepath: node-localhost-keystore.jks
 # Alias name (default: first alias which could be found)
 #searchguard.ssl.http.keystore_alias: my_alias
 # Keystore password (default: changeit)
-searchguard.ssl.http.keystore_password: test123
+searchguard.ssl.http.keystore_password: changeit
 # Do the clients (typically the browser or the proxy) have to authenticate themself to the http server, default is OPTIONAL
 # To enforce authentication use REQUIRE, to completely disable client certificates use NONE
 #searchguard.ssl.http.clientauth_mode: REQUIRE
@@ -169,6 +165,6 @@ searchguard.ssl.http.truststore_filepath: truststore.jks
 # Alias name (default: first alias which could be found)
 #searchguard.ssl.http.truststore_alias: my_alias
 # Truststore password (default: changeit)
-searchguard.ssl.http.truststore_password: test123
+searchguard.ssl.http.truststore_password: changeit
 # Use native Open SSL instead of JDK SSL if available (default: true)
 searchguard.ssl.http.enable_openssl_if_available: true
