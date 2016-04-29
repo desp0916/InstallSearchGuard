@@ -211,7 +211,7 @@ plugins/search-guard-2/tools/sgadmin.sh \
 如果一切順利的話，你會看到如下的訊息：
 
 ```bash
-onnect to localhost:9300
+Connect to localhost:9300
 searchguard index does not exists, attempt to create it ... done
 populate config ...
 Will update 'config' with plugins/search-guard-2/sgconfig/sg_config.yml
