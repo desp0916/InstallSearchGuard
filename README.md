@@ -156,7 +156,7 @@ searchguard.authcz.admin_dn:
 
 切換目錄到 `/usr/share/elasticsearch/plugins/search-guard-2/sgconfig` 下，編輯以下檔案：
 
-sg_internal_users.yml，把剛剛記下來的那組 hash code 複製過來：
+`sg_internal_users.yml`，把剛剛記下來的那組 hash code 複製過來：
 
 ```yaml
 admin:
@@ -165,7 +165,7 @@ admin:
     - sg_admin
 ```
 
-sg_roles_mapping.yml
+`sg_roles_mapping.yml`
 
 ```yaml
 sg_admin:
@@ -175,7 +175,7 @@ sg_admin:
     - admin
 ```
 
-sg_roles.yml
+`sg_roles.yml`
 
 ```yaml
 sg_admin:
@@ -189,7 +189,7 @@ sg_admin:
 
 ## 5. 上傳設定檔並建立  `searchguard` 索引
 
-切換目錄到 `/user/share/elasticsearch/` 下，執行以下指令（如果 `sgadmin.sh` 不能執行，記得要先 `chmod u+x `sgadmin.sh）：
+切換目錄到 `/user/share/elasticsearch/` 下，執行以下指令（如果 `sgadmin.sh` 不能執行，記得要先 `chmod u+x sgadmin.sh`）：
 
 ```bash
 plugins/search-guard-2/tools/sgadmin.sh \
