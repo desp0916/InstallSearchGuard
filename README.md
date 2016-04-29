@@ -187,7 +187,7 @@ sg_admin:
 
 ## 5. 上傳設定檔並建立  `searchguard` 索引
 
-切換目錄到 `/user/share/elasticsearch/` 下，執行以下指令：
+切換目錄到 `/user/share/elasticsearch/` 下，執行以下指令（如果 `sgadmin.sh` 不能執行，記得要先 `chmod u+x `sgadmin.sh）：
 
 ```bash
 plugins/search-guard-2/tools/sgadmin.sh \
