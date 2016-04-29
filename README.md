@@ -282,7 +282,15 @@ yellow open logstash-2015.05.20 5 1   4750 0    19mb    19mb
 最後，也可檢視  `searchgaurd` 這個索引的內容：
 
 ```bash
- curl -XGET -k -u admin:test123 "https://localhost:9200/searchguard/?pretty" | less
+ curl -XGET -k -u admin:adminpass "https://localhost:9200/searchguard/?pretty" | less
+{
+  "searchguard" : {
+    "aliases" : { },
+    "mappings" : {
+      "config" : {
+        "properties" : {
+          "searchguard" : {
+            "properties" : {
  :
  :
 ```
@@ -305,5 +313,5 @@ A: 其實在 `/usr/share/elasticsearch/plugins/search-guard-2/sgconfig/sg_intern
 
 ### Q2: 如何 troubleshooting？
 
-A: 建議可以另開一個 terminal，然後 `tail -F /var/log/elasticsearch/elasticsearch.log`，隨時觀看 log 訊息。
+A: 安裝設定過程中，建議可以另開一個 terminal，然後 `tail -F /var/log/elasticsearch/elasticsearch.log`，隨時觀看 log 訊息。
 
