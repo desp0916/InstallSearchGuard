@@ -134,7 +134,7 @@ openssl x509 -in node-localhost-signed.pem -text -noout
 
 ## 4. 建立一個 `admin` user
 
-為 Search Guard 新增一個 user 其實滿麻煩的。這邊以 `admin` 為例，一步一步解說：
+為 Search Guard 新增一個 user 其實滿麻煩的。這邊以 `admin` 為例，一步一步解說。
 
 首先你要用 `/plugins/search-guard-2/tools/hash.sh` 來為 `admin` 的密碼產生 hash code（如果 `hash.sh` 不能執行，記得要先 `chmod u+x hash.sh`）：
 
