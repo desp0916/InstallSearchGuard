@@ -59,10 +59,10 @@ git clone https://github.com/floragunncom/search-guard-ssl.git
 
 再來，也請先依據您的需要，編輯 `/usr/share/elasticsearch/sg_scripts` 下的這四個檔案：
 
- a. `etc/root-ca.conf`
- b. `etc/signing-ca.conf`
- c. `gen_client_cert.sh`
- d. `gen_node_cert.sh`
+ - `etc/root-ca.conf`
+ - `etc/signing-ca.conf`
+ - `gen_client_cert.sh`
+ - `gen_node_cert.sh`
 
 同樣地，建議你也可以參考[我修改後的內容](https://github.com/desp0916/InstallSearchGaurd/sg_scripts/) 與官方的文件「[Create your own Root CA](https://github.com/floragunncom/search-guard-ssl/wiki/Create-your-own-Root-CA)」。然後，再把這個目錄複製為 `/usr/share/elasticsearch/sg_scripts`：
 
@@ -200,11 +200,11 @@ plugins/search-guard-2/tools/sgadmin.sh \
 
 `sgadmin.sh` 會以 `admin` 這個帳號與密碼，把 `sgconfig/` 目錄下的 5 個檔案上傳到 cluster，並建立（或更新） `searchguard` 索引： 
 
- a. `sg_config.yml`
- b. `sg_roles.yml`
- c. `sg_roles_mapping.yml`
- d. `sg_internal_users.yml`
- e. `sg_action_groups.yml`
+ - `sg_config.yml`
+ - `sg_roles.yml`
+ - `sg_roles_mapping.yml`
+ - `sg_internal_users.yml`
+ - `sg_action_groups.yml`
 
 這 5 個檔案就是所謂的「[Dynamic configuration](https://github.com/floragunncom/search-guard)」。
 
@@ -299,11 +299,11 @@ yellow open logstash-2015.05.20 5 1   4750 0    19mb    19mb
 
 以下是我參考的一些文件：
 
-  a. [search-guard](https://github.com/floragunncom/search-guard)
-  b. [search-guard Wiki](https://github.com/floragunncom/search-guard/wiki)
-  c. [search-guard-ssl](https://github.com/floragunncom/search-guard-ssl)
-  d. [search-guard-ssl Wiki](https://github.com/floragunncom/search-guard-ssl/wiki)
-  e. [Search Guard for Elasticsearch 2 is coming Februar 2016    ](https://groups.google.com/forum/#!topic/search-guard/orEvYx3liH8)
+  - [search-guard](https://github.com/floragunncom/search-guard)
+  - [search-guard Wiki](https://github.com/floragunncom/search-guard/wiki)
+  - [search-guard-ssl](https://github.com/floragunncom/search-guard-ssl)
+  - [search-guard-ssl Wiki](https://github.com/floragunncom/search-guard-ssl/wiki)
+  - [Search Guard for Elasticsearch 2 is coming Februar 2016    ](https://groups.google.com/forum/#!topic/search-guard/orEvYx3liH8)
 
 ## 8. 常見問題：
 
