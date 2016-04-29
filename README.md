@@ -1,6 +1,6 @@
 # Install Search Guard for Elasticsearch 2.3.1
 
-[Search Guard](http://floragunn.com/searchguard/) 是 [flora gunn](http://floragunn.com/)出的一套 Elasticsearch plugin，其用途類似於 Elastic 的 [Shield](https://www.elastic.co/products/shield)。但是因為 Shield 是 closed source 的、又不能單獨購買（必須同時購買其他產品與支援，詳情請參考 Elastic 的「[Subscriptions](https://www.elastic.co/subscriptions)」網頁），所以 Search Guard 就成為一些 Elasticsearch 用戶的第二選擇。不過 Search Guard 的設定過程滿繁瑣的，所以本文就是在說明 Search Guard Free 版的安裝細節。
+[Search Guard](http://floragunn.com/searchguard/) 是 [flora gunn](http://floragunn.com/) 出的一套 Elasticsearch plugin，其用途類似於 Elastic 的 [Shield](https://www.elastic.co/products/shield)。但是因為 Shield 是 closed source 的、又不能單獨購買（必須同時購買其他產品與支援，詳情請參考 Elastic 的「[Subscriptions](https://www.elastic.co/subscriptions)」網頁），所以 Search Guard 就成為一些 Elasticsearch 用戶的第二選擇。不過 Search Guard 的設定過程滿繁瑣的，所以本文就是在說明 Search Guard Free 版的安裝細節。
 
 我使用的軟體版本如下：
 
