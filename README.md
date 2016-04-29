@@ -12,7 +12,7 @@
   - search-guard-ssl: 2.3.1.8.1
   - search-guard-2: 2.3.1.0-beta1
 
-另外，我只有在 VirtualBox 裡的一個 Elasticsearch node 上測試過而已，尚未於正式環境上的 Cluster 實際驗證過 。
+另外，要先聲明的是：我只有在 VirtualBox 裡的一個 Elasticsearch node 上測試過而已，尚未於正式環境上的 Cluster 實際驗證過喔！
 
 ## 1. 安裝一些 rpm 與兩個 plugins
 
