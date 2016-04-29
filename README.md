@@ -14,7 +14,7 @@
 
 ## 1. 安裝一些 rpm 與兩個 plugins
 
-建議先閱讀一下 [search-guard-ssl](https://github.com/floragunncom/search-guard-ssl) 的一篇 wiki —— [Open SSL setup](https://github.com/floragunncom/search-guard-ssl/wiki/Open-SSL-setup)」，請依序執行以下指令：
+建議先閱讀一下 [search-guard-ssl](https://github.com/floragunncom/search-guard-ssl) 的一篇 wiki —— [Open SSL setup](https://github.com/floragunncom/search-guard-ssl/wiki/Open-SSL-setup)，請依序執行以下指令：
 
 ```bash
 # 安裝 openssl、openssl-devel、apr 這三個 rpms（如果你不想使用 Open SSL，可以不裝 apr）
