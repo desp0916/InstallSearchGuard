@@ -156,7 +156,10 @@ searchguard.authcz.admin_dn:
 
 切換目錄到 `/usr/share/elasticsearch/plugins/search-guard-2/sgconfig` 下，編輯以下檔案：
 
-`sg_internal_users.yml`，把剛剛記下來的那組 hash code 複製過來：
+### `sg_internal_users.yml`
+
+把剛剛記下來的那組 hash code 複製過來：
+
 
 ```yaml
 admin:
@@ -165,7 +168,8 @@ admin:
     - sg_admin
 ```
 
-`sg_roles_mapping.yml`
+### `sg_roles_mapping.yml`
+
 
 ```yaml
 sg_admin:
@@ -175,7 +179,8 @@ sg_admin:
     - admin
 ```
 
-`sg_roles.yml`
+### `sg_roles.yml`
+
 
 ```yaml
 sg_admin:
