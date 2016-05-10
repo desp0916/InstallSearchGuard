@@ -108,7 +108,7 @@ sg_scripts/
 產生 Root CA 憑證與 truststore：
 
 ```bash
-cd /usr/share/elasticsearch/sg_tools/
+cd /usr/share/elasticsearch/sg_scripts/
 ./clean.sh  # 如果你是初次產生 Root CA 與憑證，此步驟可省略；
             # 這個指令是用來刪除之前產生的檔案與目錄的。
 ./gen_root_ca.sh capass changeit     # 產生 Root CA。「capass」是 Root CA 的憑證加密密碼，「changeit」則是 truststore
