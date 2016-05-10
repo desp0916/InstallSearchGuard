@@ -114,10 +114,11 @@ cd /usr/share/elasticsearch/sg_scripts/
                                                    # 案。
 
 cp truststore.jks /etc/elasticsearch               # 將 truststore.jks 複製到 elasticsearch 設定與 sgconfig 目錄下。
+
 cp truststore.jks /usr/share/elasticsearch/plugins/search-guard-2/sgconfig/
 ```
 
-產生某 node 的 keystore，這裡使用 `localhost` 做為 node name。正常來說，這個值應該和 `/elasticsearch/elasticsearch.yml` 的 `node.name` 設定一樣。但是每個 node 的 `oid` 必須都不一樣： 
+產生某 node 的 keystore，這裡使用 `localhost` 做為 node name。正常來說，這個值應該和 `/elasticsearch/elasticsearch.yml` 的 `node.name` 設定一樣。但是每個 node 的 `oid` 必須都不相同： 
 
 
 ```bash
