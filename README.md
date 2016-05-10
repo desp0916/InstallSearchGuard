@@ -48,8 +48,8 @@ echo "logger.com.floragunn.searchguard.ssl: DEBUG" >> /etc/elasticsearch/logging
 此時，至少在 `/etc/elasticsearch/elasticsearch.yml` 加入以下設定：
 
 ```bash
-searchguard.enable: true
 security.manager.enabled: false
+searchguard.enable: true
 searchguard.authcz.admin_dn:
   - "CN=admin,OU=client,O=PIC,l=Taipei, C=TW"
 ```
