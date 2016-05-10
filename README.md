@@ -73,10 +73,10 @@ git clone https://github.com/floragunncom/search-guard-ssl.git
 
 再來，也請先依據您的需要，編輯 `/root/tmp/search-guard-ssl/example-pki-scripts` 下的這四個檔案：
 
- - `etc/root-ca.conf`：主要是「`[ ca_dn ]`」的部分
- - `etc/signing-ca.conf`：主要是「`[ ca_dn ]`」的部分
- - `gen_client_cert.sh`：主要是「`-dname`」的部分
- - `gen_node_cert.sh`：主要是是「`-dname`」和「`-ext`」的部分
+ - `etc/root-ca.conf`：主要是 `[ ca_dn ]` 的部分
+ - `etc/signing-ca.conf`：主要是 `[ ca_dn ]` 的部分
+ - `gen_client_cert.sh`：主要是 `-dname` 的部分
+ - `gen_node_cert.sh`：主要是是 `-dname` 和 `-ext` 的部分
 
 同樣地，建議你也可以先參考官方 wiki「[Create your own Root CA](https://github.com/floragunncom/search-guard-ssl/wiki/Create-your-own-Root-CA)」與[我修改後的內容](https://github.com/desp0916/InstallSearchGuard/tree/master/sg_scripts) 。然後，再把這個目錄複製為 `/usr/share/elasticsearch/sg_scripts`：
 
