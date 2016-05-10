@@ -100,8 +100,8 @@ node.rack: r1
 network.host: 0.0.0.0
 shield.audit.enabled: true
 # SearchGuard
-searchguard.enable: true
 security.manager.enabled: false
+searchguard.enable: true
 searchguard.authcz.admin_dn:
   - "CN=admin,OU=client,O=PIC,l=Taipei, C=TW"
 # - "CN=kirk,OU=client,O=PIC,l=Taipei, C=TW"
