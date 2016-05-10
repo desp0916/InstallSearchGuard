@@ -21,12 +21,12 @@
 ```bash
 # 安裝 openssl、openssl-devel、apr 這三個 rpms（如果你不想使用 Open SSL，可以不裝 apr）
 yum install openssl openssl-devel apr
-# 安裝 Apache Tomcat Native Library（如果你不想使用 Open SSL，此步驟可省略）
-cd /usr/share/elasticsearch/plugins/search-guard-ssl && wget  "http://repo1.maven.org/maven2/io/netty/netty-tcnative/1.1.33.Fork13/netty-tcnative-1.1.33.Fork13-osx-x86_64.jar"
 # 安裝 search-guard-ssl plugin，如果出現「WARNING: plugin requires additional permissions」的警告訊息，可以忽略不用理會
 /usr/share/elasticsearch/bin/plugin install com.floragunn/search-guard-ssl/2.3.1.8.1
 # 安裝 search-guard-2 plugin
 /usr/share/elasticsearch/bin/plugin install com.floragunn/search-guard-2/2.3.1.0-beta1
+# 安裝 Apache Tomcat Native Library（如果你不想使用 Open SSL，此步驟可省略）
+cd /usr/share/elasticsearch/plugins/search-guard-ssl && wget  "http://repo1.maven.org/maven2/io/netty/netty-tcnative/1.1.33.Fork13/netty-tcnative-1.1.33.Fork13-osx-x86_64.jar"
 # 設定 keytool 的 alternatives
 alternatives --install /usr/bin/keytool keytool /usr/java/default/jre/bin/keytool 200000
 ```
