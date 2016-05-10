@@ -21,7 +21,7 @@
 ```bash
 # 安裝 openssl、openssl-devel、apr 這三個 rpms（如果你不想使用 Open SSL，可以不裝 apr）
 yum install openssl openssl-devel apr
-# 安裝 search-guard-ssl plugin，如果出現「WARNING: plugin requires additional permissions」的警告訊息，可以忽略不用理會
+# 安裝 search-guard-ssl plugin，如果出現「WARNING: plugin requires additional permissions」的警告訊息，並問你「Continue with installation? [y/N]」，請回答「y」繼續。
 /usr/share/elasticsearch/bin/plugin install com.floragunn/search-guard-ssl/2.3.2.9
 # 安裝 search-guard-2 plugin
 /usr/share/elasticsearch/bin/plugin install com.floragunn/search-guard-2/2.3.2.0-beta2
