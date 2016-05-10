@@ -1,4 +1,9 @@
 #!/bin/bash
+#########################
+# 'dname' and 'ext san' have to specified on two location in this file  
+# For the meaning of oid:1.2.3.4.5.5 see 'https://github.com/floragunncom/search-guard/wiki/What-means-oid:1.2.3.4.5.5'
+#########################
+
 set -e
 NODE_NAME=node-$1
 
@@ -23,10 +28,15 @@ keytool -genkey \
         -keyalg    RSA \
         -keysize   2048 \
         -validity  712 \
+        -sigalg SHA256withRSA \
         -keypass $KS_PASS \
         -storepass $KS_PASS \
         -dname "CN=$NODE_NAME.localdomain, OU=RD, O=PIC, L=Tapei, C=TW" \
         -ext san=dns:$NODE_NAME.localdomain,ip:127.0.0.1,oid:1.2.3.4.5.5
+#        -dname "CN=$NODE_NAME.example.com, OU=SSL, O=Test, L=Test, C=DE" \
+#        -ext san=dns:$NODE_NAME.example.com,dns:localhost,ip:127.0.0.1,oid:1.2.3.4.5.5 
+        
+#oid:1.2.3.4.5.5 denote this a server node certificate for search guard
 
 echo Generating certificate signing request for node $NODE_NAME
 
@@ -37,8 +47,12 @@ keytool -certreq \
         -keyalg     rsa \
         -keypass $KS_PASS \
         -storepass $KS_PASS \
-        -dname "CN=$NODE_NAME.localdomain, OU=RD, O=PIC, L=Taipei, C=TW" \
+        -dname "CN=$NODE_NAME.localdomain, OU=RD, O=PIC, L=Tapei, C=TW" \
         -ext san=dns:$NODE_NAME.localdomain,ip:127.0.0.1,oid:1.2.3.4.5.5
+#        -dname "CN=$NODE_NAME.example.com, OU=SSL, O=Test, L=Test, C=DE" \
+#        -ext san=dns:$NODE_NAME.example.com,dns:localhost,ip:127.0.0.1,oid:1.2.3.4.5.5
+        
+#oid:1.2.3.4.5.5 denote this a server node certificate for search guard
 
 echo Sign certificate request with CA
 openssl ca \

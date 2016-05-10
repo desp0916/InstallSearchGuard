@@ -22,10 +22,12 @@ keytool -genkey \
         -keystore  $CLIENT_NAME-keystore.jks \
         -keyalg    RSA \
         -keysize   2048 \
+        -sigalg SHA256withRSA \
         -validity  712 \
         -keypass $KS_PASS \
         -storepass $KS_PASS \
         -dname "CN=$CLIENT_NAME, OU=client, O=PIC, L=Taipei, C=TW"
+#        -dname "CN=$CLIENT_NAME, OU=client, O=client, L=Test, C=DE"
 
 echo Generating certificate signing request for node $CLIENT_NAME
 
@@ -37,6 +39,7 @@ keytool -certreq \
         -keypass $KS_PASS \
         -storepass $KS_PASS \
         -dname "CN=$CLIENT_NAME, OU=client, O=PIC, L=Taipei, C=TW"
+#        -dname "CN=$CLIENT_NAME, OU=client, O=client, L=Test, C=DE"
 
 echo Sign certificate request with CA
 openssl ca \
