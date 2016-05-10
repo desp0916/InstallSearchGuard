@@ -69,9 +69,9 @@ mkdir -p /root/tmp && cd /root/tmp
 git clone https://github.com/floragunncom/search-guard-ssl.git
 ```
 
-請先依據您的需要，編輯 `search-guard-ssl/searchguard-ssl-config-template.yml`。（建議你可以先參考一下[我設定完成的 elasticsearch.yml](https://github.com/desp0916/InstallSearchGuard/blob/master/etc/elasticsearch.yml)，比較看看我修改了哪些地方）。然後，再把這些設定加入 `/etc/elasticsearch/elasticsearch.yml`。
+請先依據您的需要，編輯 `/root/tmp/search-guard-ssl/searchguard-ssl-config-template.yml`。（建議你可以先參考一下[我設定完成的 elasticsearch.yml](https://github.com/desp0916/InstallSearchGuard/blob/master/etc/elasticsearch.yml)，比較看看我修改了哪些地方）。然後，再把這些設定加入 `/etc/elasticsearch/elasticsearch.yml`。
 
-再來，也請先依據您的需要，編輯 `/usr/share/elasticsearch/sg_scripts` 下的這四個檔案：
+再來，也請先依據您的需要，編輯 `/root/tmp/search-guard-ssl/example-pki-scripts` 下的這四個檔案：
 
  - `etc/root-ca.conf`
  - `etc/signing-ca.conf`
