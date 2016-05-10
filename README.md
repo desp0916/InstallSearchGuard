@@ -1,4 +1,4 @@
-# Install Search Guard for Elasticsearch 2.3.1
+# Install Search Guard for Elasticsearch 2.3.2
 
 [Search Guard](http://floragunn.com/searchguard/) 是 [flora gunn](http://floragunn.com/) 出的一套 Elasticsearch plugin，其用途類似於 Elastic 的 [Shield](https://www.elastic.co/products/shield)。但是因為 Shield 是 closed source 的、要收費的、又不能單獨購買（必須同時購買其他產品與支援，詳情請參考 Elastic 的「[Subscriptions](https://www.elastic.co/subscriptions)」網頁），所以 Search Guard 就成為一些 Elasticsearch 用戶的另一個選擇。
 
@@ -8,9 +8,9 @@
 
   - OS: CentOS 7.2.1511(Core)
   - Java: 1.7.0_79
-  - Elasticsearch: 2.3.1 （我是[透過 yum 安裝的](https://www.elastic.co/guide/en/elasticsearch/reference/current/setup-repositories.html)）
-  - search-guard-ssl: 2.3.1.8.1
-  - search-guard-2: 2.3.1.0-beta1
+  - Elasticsearch: 2.3.2 （我是[透過 yum 安裝的](https://www.elastic.co/guide/en/elasticsearch/reference/current/setup-repositories.html)）
+  - search-guard-ssl: 2.3.2.9
+  - search-guard-2: 2.3.2.0-beta2
 
 另外，要先聲明的是：我只有在 VirtualBox 裡的一個 Elasticsearch node 上測試過而已，尚未於正式環境上的 Cluster 實際驗證過喔！
 
@@ -22,9 +22,9 @@
 # 安裝 openssl、openssl-devel、apr 這三個 rpms（如果你不想使用 Open SSL，可以不裝 apr）
 yum install openssl openssl-devel apr
 # 安裝 search-guard-ssl plugin，如果出現「WARNING: plugin requires additional permissions」的警告訊息，可以忽略不用理會
-/usr/share/elasticsearch/bin/plugin install com.floragunn/search-guard-ssl/2.3.1.8.1
+/usr/share/elasticsearch/bin/plugin install com.floragunn/search-guard-ssl/2.3.2.9
 # 安裝 search-guard-2 plugin
-/usr/share/elasticsearch/bin/plugin install com.floragunn/search-guard-2/2.3.1.0-beta1
+/usr/share/elasticsearch/bin/plugin install com.floragunn/search-guard-2/2.3.2.0-beta2
 # 安裝 Apache Tomcat Native Library（如果你不想使用 Open SSL，此步驟可省略）
 cd /usr/share/elasticsearch/plugins/search-guard-ssl && wget  "http://repo1.maven.org/maven2/io/netty/netty-tcnative/1.1.33.Fork13/netty-tcnative-1.1.33.Fork13-osx-x86_64.jar"
 # 設定 keytool 的 alternatives
