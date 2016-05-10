@@ -104,32 +104,39 @@ sg_scripts/
 
 ```bash
 cd /usr/share/elasticsearch/sg_scripts/
-./clean.sh  # 如果你是初次產生 Root CA 與憑證，此步驟可省略；
-            # 這個指令是用來刪除之前產生的檔案與目錄的。
-./gen_root_ca.sh capass changeit                  # 產生 Root CA。「capass」是 Root CA 的憑證加密密碼，「changeit」則是 truststore
-                                                  # 的憑證加密密碼，請依您的需要修改。執行後，會在目前路徑下產生 ca/、certs/、crl/
-                                                  # 與 truststore.jks 等目錄與檔案。
-cp truststore.jks /etc/elasticsearch              # 將 truststore.jks 複製到 elasticsearch 設定與 sgconfig 目錄下。
+
+./clean.sh                                         # 如果你是初次產生 Root CA 與憑證，此步驟可省略；這個指令是用來
+                                                   # 刪除之前產生的檔案與目錄的。
+
+./gen_root_ca.sh capass changeit                   # 產生 Root CA。「capass」是 Root CA 的憑證加密密碼，「changeit」
+                                                   # 則是 truststore 的憑證加密密碼，請依您的需要修改。執行後，會在
+                                                   # 目前路徑下產生 ca/、certs/、crl/ 與 truststore.jks 等目錄與檔
+                                                   # 案。
+
+cp truststore.jks /etc/elasticsearch               # 將 truststore.jks 複製到 elasticsearch 設定與 sgconfig 目錄下。
 cp truststore.jks /usr/share/elasticsearch/plugins/search-guard-2/sgconfig/
 ```
 
 產生某 node 的 keystore，這裡使用 `localhost` 做為 node name。正常來說，這個值應該和 `/elasticsearch/elasticsearch.yml` 的 `node.name` 設定一樣。但是每個 node 的 `oid` 必須都不一樣： 
 
+
 ```bash
-./gen_node_cert.sh localhost changeit capass       # 產生某 node 的憑證與 keystore。「changeit」是 keystore 的憑證加密密碼
-                                                   # ，「capass」則是 Root CA 的憑證加密密碼。執行後，會在目前路徑下產生
-                                                   # node-localhost.csr、node-localhost-keystore.jks 和
-                                                   # node-localhost-keystore.p12 和 node-localhost-signed.pem 共 4 個檔案。
+./gen_node_cert.sh localhost changeit capass       # 產生某 node 的憑證與 keystore。「changeit」是 keystore 的憑證
+                                                   # 加密密碼，「capass」則是 Root CA 的憑證加密密碼。執行後，會在
+                                                   # 目前路徑下產生 node-localhost.csr、node-localhost-keystore.jks
+                                                   # 和 node-localhost-keystore.p12 和 node-localhost-signed.pem 共
+                                                   # 4 個檔案。
+
 cp node-localhost-keystore.jks /etc/elasticsearch  # 將 node-localhost-keystore.jks 複製到 elasticsearch 設定目錄下。
 ```
 
 繼續產生 client(user) 的 keystore，這裡以 `admin` 為例：
 
 ```bash
-./gen_client_node_cert.sh admin kspass capass    # 產生某 client node 的憑證與 keystore。「kspass」是 keystore 的憑證加密密碼，
-                                                 # 「capass」則是 Root CA 的憑證加密密碼。執行後，會在目前路徑下產生
-                                                 # admin.crt.pem、admin.key.pem、admin-keystore.p12、admin-keystore.jks、
-                                                 # admin-signed.pem、admin.csr 共 6 個檔案。
+./gen_client_node_cert.sh admin kspass capass     # 產生某 client node 的憑證與 keystore。「kspass」是 keystore 的
+                                                  # 憑證加密密碼，「capass」則是 Root CA 的憑證加密密碼。執行後，會
+                                                  # 在目前路徑下產生 admin.crt.pem、admin.key.pem、admin-keystore.p12
+                                                  # 、admin-keystore.jks、admin-signed.pem、admin.csr 共 6 個檔案。
 ```
 
 這裡有一件事情要特別提醒一下，就是這裡產生的憑證都只有*兩年*的有效期限。所以，請務必記得快要到期前，要重新產生憑證喔！不然，整個 cluster 可能會無法正常運作喔！
