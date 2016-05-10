@@ -224,7 +224,7 @@ plugins/search-guard-2/tools/sgadmin.sh \
   -cd plugins/search-guard-2/sgconfig   \
   -ks sg_scripts/admin-keystore.jks     \
   -ts sg_scripts/truststore.jks         \
-  -kspass kspass -tspass capass         \
+  -kspass kspass -tspass chageit        \
   -nhnv -nrhn
 ```
 
