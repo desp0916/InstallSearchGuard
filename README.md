@@ -80,7 +80,8 @@ git clone https://github.com/floragunncom/search-guard-ssl.git
 
 同樣地，建議你也可以先參考官方 wiki「[Create your own Root CA](https://github.com/floragunncom/search-guard-ssl/wiki/Create-your-own-Root-CA)」與[我修改後的內容](https://github.com/desp0916/InstallSearchGuard/tree/master/sg_scripts) 。然後，再把這個目錄複製為 `/usr/share/elasticsearch/sg_scripts`：
 
-```
+```bash
+cd /root/tmp
 cp -r search-guard-ssl/example-pki-scripts /usr/share/elasticsearch/sg_scripts
 ```
 
